@@ -1,0 +1,180 @@
+﻿# Rime schema
+# vim: set sw=2 sts=2 et:
+# encoding: utf-8
+
+schema:
+  schema_id: manchu_aligali
+  name: 滿文阿禮嘎禮
+  version: "20190728"
+  author:
+    - 沈逸磊 <shenyileirob@qq.com>
+  description: |
+    Manchu Ali-Gali input method
+    FVS0=~	FVS1='	FVS2="	FVS3=`
+    anusvara=M	visarga=:
+    damaru=;h	ubadama=;p	ubadama_alt=;f
+    baluda=;;	baluda3;;;
+    alep/SSBM/achen=A	achung=E
+    a	e	i	o	u	v	I	rI	lI
+    	k	g	g;		h			
+    G	K			n;	H			
+    q;	q	j			x	x;	y	
+    C;	C	Z	Z;	N	S		R	
+    c;	c	z	z;		s	s;		
+    t;	t	d	d;	n			r	l	l;
+    p;	p	b	b;	m	f		w	
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 中文, 西文 ]
+#  - name: half_shape
+#    states: [ 半角, 全角 ]
+#    reset: 0
+#  - name: simplification
+#    states: [ 漢字, 汉字 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - echo_translator
+    - punct_translator
+    - script_translator
+    - reverse_lookup_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: " ", send: "Shift+Return", when: has_menu}
+    - {accept: minus, send: minus, when: has_menu}
+#    - {accept: "Return", send: "Shift+Return", when: has_menu}
+
+punctuator:
+  import_preset: default
+  half_shape:
+    "-" : " "
+    "^" : "‌"
+    "," : "᠈"
+    "." : "᠉"
+  full_shape:
+    "-" : " "
+    "^" : "‌"
+    "," : "᠈"
+    "." : "᠉"
+
+speller:
+  alphabet: "-:;~'\"`&*ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  delimiter: " /"
+#  algebra:
+#    - abbrev/^([bcdghjkmnpqrstvxz]).+$/$1/
+
+translator:
+  dictionary: manchu_aligali
+  spelling_hints: 0
+  prism: manchu_aligali
+  preedit_format:
+    - xform/ //
+    - xform/((?<!;)(?!;).*)M/ᢀ$1/ # needs to be ordered first as wildcards don't always match Unicode chars properly
+    - xform/;;;/ᢆ/
+    - xform/;;/ᢅ/
+    - xform/^;h/ᢂ/
+    - xform/^;f/ᢃ/
+    - xform/^;p/ᢄ/
+    - xform/^;n/ᠩ/
+    - xform/:/ᢁ/
+    - xform/~/͏/
+    - xform/'/᠋/
+    - xform/"/᠌/
+    - xform/`/᠍/
+    - xform/-/ /
+    - xform/&/᠊/
+    - xform/\*/‍/
+    - xform/rI/ᡵᢈ/
+    - xform/lI/ᠯᢈ/
+    - xform/(?<=[aeiouI])n;(?![aeiouI])/ᠩ//
+    - xform/a/ᠠ/
+    - xform/e/ᡝ/
+    - xform/i/ᡳ/
+    - xform/o/ᠣ/
+    - xform/u/ᡠ/
+    - xform/v/ᡡ/
+    - xform/A/᠇/
+    - xform/E/ᢇ/
+    - xform/I/ᡟ/
+    - xform/b;/ᢨ/
+    - xform/C;/ᢞ/
+    - xform/c;/ᢜ/
+    - xform/d;/ᢡ/
+    - xform/g;/ᢚ/
+    - xform/l;/ᢪ/
+    - xform/n;/ᢛ/
+    - xform/p;/ᢒ/
+    - xform/q;/ᢣ/
+    - xform/s;/ᢥ/
+    - xform/t;/ᢠ/
+    - xform/x;/ᢤ/
+    - xform/Z;/ᢟ/
+    - xform/z;/ᢝ/
+    - xform/b/ᠪ/
+    - xform/C/ᡱ/
+    - xform/c/ᡮ/
+    - xform/d/ᡩ/
+    - xform/f/ᡶ/
+    - xform/g/ᡤ/
+    - xform/G/ᡬ/
+    - xform/h/ᡥ/
+    - xform/H/ᡭ/
+    - xform/j/ᠵ/
+    - xform/k/ᡴ/
+    - xform/K/ᠺ/
+    - xform/l/ᠯ/
+    - xform/m/ᠮ/
+    - xform/N/ᢏ/
+    - xform/n/ᠨ/
+    - xform/p/ᡦ/
+    - xform/q/ᠴ/
+    - xform/R/ᡰ/
+    - xform/r/ᡵ/
+    - xform/S/ᢢ/
+    - xform/s/ᠰ/
+    - xform/t/ᡨ/
+    - xform/w/ᠸ/
+    - xform/x/ᡧ/
+    - xform/y/ᠶ/
+    - xform/Z/ᡷ/
+    - xform/z/ᡯ/
+
+#reverse_lookup:
+#  dictionary: wubikuozhan
+#  prefix: "`"
+#  tips: 〔五筆〕
+
+#recognizer:
+#  import_preset: default
+#  patterns:
+#    reverse_lookup: "`[a-z]*$"
+
+style:
+  font_face: "Hanshi"
+  font_point: 40
+
+menu:
+  alternative_select_keys: "0"
+  page_size: 1
