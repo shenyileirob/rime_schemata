@@ -1,0 +1,76 @@
+﻿# Rime dictionary
+# mim: set ts=8 sw=8 noet:
+# encoding: utf-8
+#
+# 维吾尔ULY显现形式
+# 
+# Author:
+#   沈逸磊 <917514182@qq.com>
+
+
+
+---
+name: uyghur_uly_pf
+version: "20201208"
+sort: original
+use_preset_vocabulary: false
+...
+
+# tor
+č	C
+
+# body
+_	_
+'	v
+a	a
+e	e
+b	b
+p	p
+t	t
+j	j
+č	c
+x	x
+d	d
+r	r
+z	z
+ž	Z
+s	s
+š	S
+ğ	G
+f	f
+q	q
+k	k
+g	g
+ŋ	N
+l	l
+m	m
+n	n
+h	h
+o	o
+u	u
+ö	O
+ü	U
+w	w
+ë	E
+i	i
+y	y
+
+# catch all
+Ȧ̉	A
+Ḃ̉	B
+Ḋ̉	D
+Ḟ̉	F
+Ḣ̉	H
+İ̉	I
+J̇̉	J
+K̇̉	K
+L̇̉	L
+Ṁ̉	M
+Ṗ̉	P
+Q̇̉	Q
+Ṙ̉	R
+Ṫ̉	T
+V̇̉	V
+Ẇ̉	W
+Ẋ̉	X
+Ẏ̉	Y

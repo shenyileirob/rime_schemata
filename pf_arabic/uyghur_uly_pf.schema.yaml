@@ -1,0 +1,240 @@
+﻿# Rime schema
+# vim: set sw=2 sts=2 et:
+# encoding: utf-8
+
+schema:
+  schema_id: uyghur_uly_pf
+  name: 维吾尔ULY显现形式
+  version: "20201208"
+  author:
+    - 沈逸磊 <shenyileirob@qq.com>
+  description: |
+    维吾尔文
+    ULY兼容的键盘输入，显现形式的字符输出
+    v	'
+    c/C	č
+    Z	ž
+    S	š
+    G	ğ
+    N	ŋ
+    O	ö
+    U	ü
+    E	ë
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ ئۇيغۇر, Latin ]
+#  - name: half_shape
+#    states: [ 半角, 全角 ]
+#    reset: 0
+#  - name: simplification
+#    states: [ 漢字, 汉字 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - echo_translator
+    - punct_translator
+    - script_translator
+    - reverse_lookup_translator
+  filters:
+    - simplifier
+    - uniquifier
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: " ", send: "Shift+Return", when: has_menu}
+    - {accept: minus, send: minus, when: has_menu}
+#    - {accept: "Return", send: "Shift+Return", when: has_menu}
+
+punctuator:
+#  import_preset: default
+  half_shape:
+    "," : "،"
+    ";" : "؛"
+    "'" : "»"
+    "`" : "ـ"
+    "?" : "؟"
+    "\"" : "«"
+    "~" : "…"
+  full_shape:
+    "," : "،"
+    ";" : "؛"
+    "'" : "»"
+    "`" : "ـ"
+    "?" : "؟"
+    "\"" : "«"
+    "~" : "…"
+
+speller:
+  alphabet: "_ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+  delimiter: " /"
+#  algebra:
+#    - abbrev/^([bcdghjkmnpqrstvxz]).+$/$1/
+
+translator:
+  dictionary: uyghur_uly_pf
+  spelling_hints: 0
+  prism: uyghur_uly_pf
+  preedit_format:
+    - xform/ //
+    - xform/^|(?<=[aedrzZouOUw])/@/
+    
+    - xform/C/c/
+        
+    - xform/_/ـ/
+    
+    - xform/@la/ﻻ/
+    - xform/la/ﻼ/
+    
+    # isol
+    - xform/@b$/ﺏ/
+    - xform/@p$/ﭖ/
+    - xform/@t$/ﺕ/
+    - xform/@j$/ﺝ/
+    - xform/@c$/ﭺ/
+    - xform/@x$/ﺥ/
+    - xform/@s$/ﺱ/
+    - xform/@S$/ﺵ/
+    - xform/@G$/ﻍ/
+    - xform/@f$/ﻑ/
+    - xform/@q$/ﻕ/
+    - xform/@k$/ﻙ/
+    - xform/@N$/ﯓ/
+    - xform/@g$/ﮒ/
+    - xform/@l$/ﻝ/
+    - xform/@m$/ﻡ/
+    - xform/@n$/ﻥ/
+    - xform/@h$/ﮪ/
+    - xform/@E$/ﯤ/
+    - xform/@i$/ﻯ/
+    - xform/@y$/ﻱ/
+    - xform/@v$/ﺋ/
+    # init
+    - xform/@b/ﺑ/
+    - xform/@p/ﭘ/
+    - xform/@t/ﺗ/
+    - xform/@j/ﺟ/
+    - xform/@c/ﭼ/
+    - xform/@x/ﺧ/
+    - xform/@s/ﺳ/
+    - xform/@S/ﺷ/
+    - xform/@G/ﻏ/
+    - xform/@f/ﻓ/
+    - xform/@q/ﻗ/
+    - xform/@k/ﻛ/
+    - xform/@N/ﯕ/
+    - xform/@g/ﮔ/
+    - xform/@l/ﻟ/
+    - xform/@m/ﻣ/
+    - xform/@n/ﻧ/
+    - xform/@h/ﮬ/
+    - xform/@E/ﯦ/
+    - xform/@i/ﯨ/
+    - xform/@y/ﻳ/
+    - xform/@v/ﺋ/
+    - xform/@a/ﺍ/
+    - xform/@e/ﻩ/
+    - xform/@d/ﺩ/
+    - xform/@r/ﺭ/
+    - xform/@z/ﺯ/
+    - xform/@Z/ﮊ/
+    - xform/@o/ﻭ/
+    - xform/@u/ﯗ/
+    - xform/@O/ﯙ/
+    - xform/@U/ﯛ/
+    - xform/@w/ﯞ/
+    # fina
+    - xform/b$/ﺐ/
+    - xform/p$/ﭗ/
+    - xform/t$/ﺖ/
+    - xform/j$/ﺞ/
+    - xform/c$/ﭻ/
+    - xform/x$/ﺦ/
+    - xform/s$/ﺲ/
+    - xform/S$/ﺶ/
+    - xform/G$/ﻎ/
+    - xform/f$/ﻒ/
+    - xform/q$/ﻖ/
+    - xform/k$/ﻚ/
+    - xform/N$/ﯔ/
+    - xform/g$/ﮓ/
+    - xform/l$/ﻞ/
+    - xform/m$/ﻢ/
+    - xform/n$/ﻦ/
+    - xform/h$/ﮫ/
+    - xform/E$/ﯥ/
+    - xform/i$/ﻰ/
+    - xform/y$/ﻲ/
+    - xform/v$/ﺌ/
+    # medi
+    - xform/b/ﺒ/
+    - xform/p/ﭙ/
+    - xform/t/ﺘ/
+    - xform/j/ﺠ/
+    - xform/c/ﭽ/
+    - xform/x/ﺨ/
+    - xform/s/ﺴ/
+    - xform/S/ﺸ/
+    - xform/G/ﻐ/
+    - xform/f/ﻔ/
+    - xform/q/ﻘ/
+    - xform/k/ﻜ/
+    - xform/N/ﯖ/
+    - xform/g/ﮕ/
+    - xform/l/ﻠ/
+    - xform/m/ﻤ/
+    - xform/n/ﻨ/
+    - xform/h/ﮭ/
+    - xform/E/ﯧ/
+    - xform/i/ﯩ/
+    - xform/y/ﻴ/
+    - xform/v/ﺌ/
+    - xform/a/ﺎ/
+    - xform/e/ﻪ/
+    - xform/d/ﺪ/
+    - xform/r/ﺮ/
+    - xform/z/ﺰ/
+    - xform/Z/ﮋ/
+    - xform/o/ﻮ/
+    - xform/u/ﯘ/
+    - xform/O/ﯚ/
+    - xform/U/ﯜ/
+    - xform/w/ﯟ/
+
+    - xform/@// # erase the final @ after left breakings
+    - xform/[ABDFHIJKLMPQRTVWXY]/؟/
+    
+#reverse_lookup:
+#  dictionary: wubikuozhan
+#  prefix: "`"
+#  tips: 〔五筆〕
+
+#recognizer:
+#  import_preset: default
+#  patterns:
+#    reverse_lookup: "`[a-z]*$"
+
+style:
+  font_face: "Calibri" # "Microsoft Uighur"
+  font_point: 40
+
+menu:
+  alternative_select_keys: "0"
+  page_size: 1
